@@ -26,7 +26,7 @@ public class TaskController {
         return "redirect:/";
     }
 
-    @RequestMapping(value = "/removetask/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/deletetask/{id}", method = RequestMethod.DELETE)
     public String removeTask(@PathVariable int id){
         taskService.deleteTask(id);
         return "redirect:/";

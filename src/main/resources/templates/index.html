@@ -2,6 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
     <meta http-equiv="Content-Type" content="text/html"/>
+    <script>
+        function UserAction(id) {
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("DELETE", "/deletetask/"+id, true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+            xhttp.open("GET","/",true)
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send();
+            var response = JSON.parse(xhttp.responseText);
+        }
+
+    </script>
 </head>
 <body>
 
@@ -19,7 +32,7 @@
     <tr th:each="task : ${tasks}">
         <td th:text="${task.id}">Onions</td>
         <td th:text="${task.name}">2.41</td>
-        <td><a th:href="@{/removetask/{task.id}}">x</a></td>
+        <td><button type="submit" th:onclick="'javascript:UserAction(' + ${task.id} + ');'">x</button></td>
            </tr>
 </table>
 </body>
