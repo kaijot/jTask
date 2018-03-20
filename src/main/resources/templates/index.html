@@ -8,9 +8,7 @@
             xhttp.open("DELETE", "/deletetask/"+id, true);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.send();
-            xhttp.open("GET","/",true)
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send();
+            location.reload();
             var response = JSON.parse(xhttp.responseText);
         }
 
