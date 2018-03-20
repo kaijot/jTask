@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html"/>
+</head>
+<body>
+
+<form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post">
+    <input type="text" th:field="*{name}" id="name" name="name"/>
+</form>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th></th>
+
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}">Onions</td>
+        <td th:text="${task.name}">2.41</td>
+        <td><a th:href="@{/removetask/{task.id}}">x</a></td>
+           </tr>
+</table>
+</body>
+</html>
