@@ -1,44 +1,63 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
+    <title>jTask</title>
     <meta http-equiv="Content-Type" content="text/html"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <script>
-        function UserAction(id) {
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("DELETE", "/deletetask/"+id, true);
-            xhttp.setRequestHeader("Content-type", "application/json");
-            xhttp.send();
-            location.reload();
-            var response = JSON.parse(xhttp.responseText);
-        }
+        var url = "/showtasks";
 
+        function deleteTask(id) {
+            $.ajax({
+                url: '/deletetask/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    $('#tasksList').load(url);
+                }
+            });
+        }
     </script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
 </head>
 <body>
 
-<form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post">
+<form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post" class="form-horizontal" role="form">
     <input type="text" th:field="*{name}" id="name" name="name"/>
     <input type="text" th:field="*{description}" id="description" name="description"/>
-    <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>
-    <button type="submit" name="addRow" >Add task</button>
+    <!-- <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>-->
+    <input size="16" type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate" value="2012-06-15 14:45" readonly
+           class="form_datetime">
+    <button type="submit" name="addRow">Add task</button>
 </form>
+<div id="tasksList">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th></th>
 
-<table>
-    <tr>
-        <th>id</th>
-        <th>name</th>
-        <th></th>
+        </tr>
+        <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}">Id</td>
+            <td th:text="${task.name}">Name</td>
+            <td th:text="${task.description}">Description</td>
+            <td th:text="${#temporals.format(task.toDoDate,'dd-MM-yyyy, HH:mm')}">To do date</td>
+            <td th:text="${task.priority}">Priority</td>
+            <td>
+                <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+            </td>
+        </tr>
+    </table>
+</div>
 
-    </tr>
-    <tr th:each="task : ${tasks}">
-        <td th:text="${task.id}">Id</td>
-        <td th:text="${task.name}">Name</td>
-        <td th:text="${task.description}">Description</td>
-        <td th:text="${task.toDoDate}">To do date</td>
-        <td th:text="${task.priority}">Priority</td>
-        <td><button type="submit" th:onclick="'javascript:UserAction(' + ${task.id} + ');'">x</button></td>
-           </tr>
-</table>
 
+<script src="webjars/jquery/3.3.1-1/jquery.js"></script>
+<script src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<script src="../static/bootstrap-datetimepicker.js" th:src="@{/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({format: 'dd.mm.yyyy, hh:ii'});
+</script>
 </body>
 </html>

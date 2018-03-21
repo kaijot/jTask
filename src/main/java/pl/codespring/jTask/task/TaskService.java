@@ -28,6 +28,8 @@ public class TaskService {
     }
 
     public void deleteTask(int id){
-        taskRepository.deleteById(id);
+        if(taskRepository.existsById(id)) {
+            taskRepository.deleteById(id);
+        }
     }
 }

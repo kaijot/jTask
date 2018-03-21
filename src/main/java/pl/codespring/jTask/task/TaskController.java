@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class TaskController {
 
@@ -20,16 +22,21 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/addtask", method = RequestMethod.POST)
-    public String  addTask(@ModelAttribute Task task) {
+    public String addTask(@ModelAttribute Task task) {
         taskService.addTask(task);
         return "redirect:/";
     }
 
     @RequestMapping(value = "/deletetask/{id}", method = RequestMethod.DELETE)
-    public String removeTask(@PathVariable int id){
+    public String removeTask(@PathVariable int id) {
         taskService.deleteTask(id);
         return "redirect:/";
     }
 
+    @RequestMapping("/showtasks")
+    public String showTasks(Model model){
 
+        model.addAttribute("tasks", taskService.getAllTasks());
+        return "tasks";
+    }
 }
