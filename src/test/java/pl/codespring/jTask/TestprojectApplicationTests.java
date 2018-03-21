@@ -1,4 +1,4 @@
-package pl.codespring.testproject;
+package pl.codespring.jTask;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

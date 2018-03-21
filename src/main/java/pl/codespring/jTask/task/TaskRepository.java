@@ -1,4 +1,4 @@
-package pl.codespring.testproject.task;
+package pl.codespring.jTask.task;
 
 import org.springframework.data.repository.CrudRepository;
 
