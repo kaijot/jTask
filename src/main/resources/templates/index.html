@@ -18,6 +18,9 @@
 
 <form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post">
     <input type="text" th:field="*{name}" id="name" name="name"/>
+    <input type="text" th:field="*{description}" id="description" name="description"/>
+    <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>
+    <button type="submit" name="addRow" >Add task</button>
 </form>
 
 <table>
@@ -28,10 +31,14 @@
 
     </tr>
     <tr th:each="task : ${tasks}">
-        <td th:text="${task.id}">Onions</td>
-        <td th:text="${task.name}">2.41</td>
+        <td th:text="${task.id}">Id</td>
+        <td th:text="${task.name}">Name</td>
+        <td th:text="${task.description}">Description</td>
+        <td th:text="${task.toDoDate}">To do date</td>
+        <td th:text="${task.priority}">Priority</td>
         <td><button type="submit" th:onclick="'javascript:UserAction(' + ${task.id} + ');'">x</button></td>
            </tr>
 </table>
+
 </body>
 </html>
