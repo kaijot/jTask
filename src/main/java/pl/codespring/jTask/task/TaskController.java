@@ -10,8 +10,12 @@ import java.util.List;
 @Controller
 public class TaskController {
 
+    private final TaskService taskService;
+
     @Autowired
-    private TaskService taskService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @RequestMapping("/")
     public String showIndexPage(Model model) {
