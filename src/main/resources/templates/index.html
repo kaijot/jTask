@@ -17,6 +17,16 @@
                 }
             });
         }
+
+        function changeStatus(id){
+            $.ajax({
+                url: '/changestatus/'+id,
+                type: 'PUT',
+                success: function (resut){
+                    $('#tasksList').load(url);
+                }
+            })
+        }
     </script>
     <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
@@ -27,8 +37,17 @@
     <input type="text" th:field="*{name}" id="name" name="name"/>
     <input type="text" th:field="*{description}" id="description" name="description"/>
     <!-- <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>-->
+    <select th:name="priority" th:field="*{priority}">
+        <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
+                th:value="${priority}"
+                th:text="${priority}">
+        </option>
+    </select>
+
     <input size="16" type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate" value="2012-06-15 14:45" readonly
            class="form_datetime">
+
+
     <button type="submit" name="addRow">Add task</button>
 </form>
 <div id="tasksList">
@@ -47,6 +66,9 @@
             <td th:text="${task.priority}">Priority</td>
             <td>
                 <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+            </td>
+            <td>
+                <input type="checkbox" name="isDone" th:checked="${task.isDone()} ==true"  th:onclick="'javascript:changeStatus(' + ${task.id} + ');'">
             </td>
         </tr>
     </table>

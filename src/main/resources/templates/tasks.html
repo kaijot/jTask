@@ -12,5 +12,8 @@
         <td th:text="${#temporals.format(task.toDoDate,'dd-MM-yyyy, HH:mm')}">To do date</td>
         <td th:text="${task.priority}">Priority</td>
         <td><button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button></td>
+        <td>
+            <input type="checkbox" name="isDone" th:checked="${task.isDone()} ==true"  th:onclick="'javascript:changeStatus(' + ${task.id} + ');'">
+        </td>
     </tr>
 </table>

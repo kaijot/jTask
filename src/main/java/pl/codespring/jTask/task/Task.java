@@ -5,9 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.Objects;
-
 enum TaskPriority {LOW, MEDIUM, HIGH}
-
 @Entity
 public class Task {
     @Id
@@ -17,6 +15,7 @@ public class Task {
     private String description;
     private LocalDateTime toDoDate;
     private TaskPriority priority;
+    private boolean isDone;
 
 
 
@@ -66,6 +65,8 @@ public class Task {
         this.name = "Task name";
         this.toDoDate = LocalDateTime.now();
         this.description = "Task description";
+        this.priority=priority.MEDIUM;
+        this.isDone=false;
 
     }
 
@@ -73,11 +74,23 @@ public class Task {
 
     }
 
-    public Task(String name, String description, LocalDateTime toDoDate, TaskPriority priority) {
+    public Task(String name, String description, LocalDateTime toDoDate, TaskPriority priority, boolean isDone) {
         this.name = name;
         this.description = description;
         this.toDoDate = toDoDate;
         this.priority = priority;
+        this.isDone=isDone;
+    }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+    public void changeStatus(){
+        isDone=!isDone;
     }
 
     @Override
@@ -91,6 +104,7 @@ public class Task {
                 Objects.equals(toDoDate, task.toDoDate) &&
                 priority == task.priority;
     }
+
 
     @Override
     public int hashCode() {

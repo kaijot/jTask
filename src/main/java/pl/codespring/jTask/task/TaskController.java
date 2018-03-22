@@ -22,6 +22,7 @@ public class TaskController {
         Task task = new Task();
         model.addAttribute("tasks", taskService.getAllTasks());
         model.addAttribute("newtask", task);
+
         return "index";
     }
 
@@ -42,5 +43,10 @@ public class TaskController {
 
         model.addAttribute("tasks", taskService.getAllTasks());
         return "tasks";
+    }
+    @RequestMapping(value = "/changestatus/{id}", method=RequestMethod.PUT)
+    public String changeStatus(@PathVariable int id){
+        taskService.changeStatus(id);
+        return "redirect:/";
     }
 }
