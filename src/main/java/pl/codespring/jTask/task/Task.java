@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+
 import java.util.Objects;
 enum TaskPriority {LOW, MEDIUM, HIGH}
 @Entity
@@ -63,7 +64,7 @@ public class Task {
 
     {
         this.name = "Task name";
-        this.toDoDate = LocalDateTime.now();
+        this.toDoDate = LocalDateTime.now().plusDays(1).withHour(17).withMinute(0);
         this.description = "Task description";
         this.priority=priority.MEDIUM;
         this.isDone=false;

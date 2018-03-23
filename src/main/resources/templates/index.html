@@ -8,6 +8,7 @@
     <script>
         var url = "/showtasks";
 
+
         function deleteTask(id) {
             $.ajax({
                 url: '/deletetask/' + id,
@@ -27,6 +28,13 @@
                 }
             })
         }
+
+        function  editTask(id) {
+            var url_edit = "/edittask/" +id;
+            window.open(url_edit,"_self")
+            }
+
+
     </script>
     <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
@@ -34,9 +42,8 @@
 <body>
 
 <form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post" class="form-horizontal" role="form">
-    <input type="text" th:field="*{name}" id="name" name="name"/>
-    <input type="text" th:field="*{description}" id="description" name="description"/>
-    <!-- <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>-->
+    <input type="text" name="name" id="name" placeholder="Name"/>
+    <input type="text"  id="description" name="description" placeholder="Description"/>
     <select th:name="priority" th:field="*{priority}">
         <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
                 th:value="${priority}"
@@ -66,6 +73,9 @@
             <td th:text="${task.priority}">Priority</td>
             <td>
                 <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+            </td>
+            <td>
+                <button type="submit" th:onclick="'javascript:editTask(' + ${task.id} + ');'">e</button>
             </td>
             <td>
                 <input type="checkbox" name="isDone" th:checked="${task.isDone()} ==true"  th:onclick="'javascript:changeStatus(' + ${task.id} + ');'">

@@ -42,4 +42,16 @@ public class TaskService {
             taskRepository.save(task);
         }
     }
+
+    public void editTask(Task task) {
+        taskRepository.save(task);
+    }
+
+    public Task getTask(int id) {
+        if (taskRepository.existsById(id)) {
+            return taskRepository.findById(id).get();
+        }else{
+            return null;
+        }
+    }
 }

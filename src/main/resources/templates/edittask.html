@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>jTask</title>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <script>
+        var url = "/showtasks";
+
+        function deleteTask(id) {
+            $.ajax({
+                url: '/deletetask/' + id,
+                type: 'DELETE',
+                success: function (result) {
+                    $('#tasksList').load(url);
+                }
+            });
+        }
+
+        function changeStatus(id){
+            $.ajax({
+                url: '/changestatus/'+id,
+                type: 'PUT',
+                success: function (resut){
+                    $('#tasksList').load(url);
+                }
+            })
+        }
+    </script>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
+</head>
+<body>
+
+<form action="#" th:action="@{/doEditTask}" th:object="${taskToEdit}" th:method="put"  class="form-horizontal" role="form">
+    <input type="hidden" th:field="*{id}" id="id" name="id" />
+    <input type="text" th:field="*{name}" id="name" name="name"/>
+    <input type="text" th:field="*{description}" id="description" name="description"/>
+    <!-- <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>-->
+    <select th:name="priority" th:field="*{priority}">
+        <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
+                th:value="${priority}"
+                th:text="${priority}">
+        </option>
+    </select>
+
+    <input size="16" type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate" value="2012-06-15 14:45" readonly
+           class="form_datetime">
+
+
+    <button type="submit" name="addRow">Edit task</button>
+</form>
+
+<script src="/webjars/jquery/3.3.1-1/jquery.js"></script>
+<script src="/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+<script src="../static/bootstrap-datetimepicker.js" th:src="@{/bootstrap-datetimepicker.js}"></script>
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({format: 'dd.mm.yyyy, hh:ii'});
+</script>
+</body>
+</html>

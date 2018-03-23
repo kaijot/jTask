@@ -52,9 +52,17 @@ public class TaskController {
     }
 
     @RequestMapping("/edittask/{id}")
-    public String editTask(Model model){
-        Task task = new Task();
+    public String editTask(@PathVariable int id, Model model){
+        Task task = taskService.getTask(id);
         model.addAttribute("taskToEdit",task);
         return "edittask";
     }
+
+    @RequestMapping(value="/doEditTask", method = RequestMethod.PUT)
+    public String doEditTask(@ModelAttribute Task task){
+        taskService.editTask(task);
+        return "redirect:/";
+
+    }
+
 }

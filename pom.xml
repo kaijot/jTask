@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>pl.codespring</groupId>
-	<artifactId>testproject</artifactId>
+	<artifactId>jTask</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>testproject</name>
-	<description>Demo project for Spring Boot</description>
+	<name>jTask</name>
+	<description>Task manager</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -67,6 +67,7 @@
             <artifactId>bootstrap</artifactId>
 <version>4.0.0-2</version>
         </dependency>
+
 	</dependencies>
 
 	<build>
