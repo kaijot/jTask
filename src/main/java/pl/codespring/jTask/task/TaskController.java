@@ -39,14 +39,22 @@ public class TaskController {
     }
 
     @RequestMapping("/showtasks")
-    public String showTasks(Model model){
+    public String showTasks(Model model) {
 
         model.addAttribute("tasks", taskService.getAllTasks());
         return "tasks";
     }
-    @RequestMapping(value = "/changestatus/{id}", method=RequestMethod.PUT)
-    public String changeStatus(@PathVariable int id){
+
+    @RequestMapping(value = "/changestatus/{id}", method = RequestMethod.PUT)
+    public String changeStatus(@PathVariable int id) {
         taskService.changeStatus(id);
         return "redirect:/";
+    }
+
+    @RequestMapping("/edittask/{id}")
+    public String editTask(Model model){
+        Task task = new Task();
+        model.addAttribute("taskToEdit",task);
+        return "edittask";
     }
 }
