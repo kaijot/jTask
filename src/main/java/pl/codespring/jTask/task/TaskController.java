@@ -1,5 +1,6 @@
 package pl.codespring.jTask.task;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,8 +26,8 @@ public class TaskController {
     @RequestMapping("/")
     public String showIndexPage(Model model) {
         Task task = new Task();
-        model.addAttribute("tasks", taskService.getAllTasks(false));
-        model.addAttribute("tasksdone", taskService.getAllTasks(true));
+        model.addAttribute("tasks", taskService.getAllTasks());
+
         model.addAttribute("newtask", task);
 
         return "index";
@@ -36,17 +37,13 @@ public class TaskController {
     public String addTask(@ModelAttribute("newtask") @Valid TaskDto taskDto, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult.toString());
-            model.addAttribute("tasks", taskService.getAllTasks(false));
-            model.addAttribute("tasksdone", taskService.getAllTasks(true));
+            model.addAttribute("tasks", taskService.getAllTasks());
+
             model.addAttribute("newtask", taskDto);
             return "index";
         } else {
-            Task task = new Task();
-            task.setName(taskDto.getName());
-            task.setDescription(taskDto.getDescription());
-            task.setDone(taskDto.isDone());
-            task.setPriority(taskDto.getPriority());
-            task.setToDoDate(taskDto.getToDoDate());
+            ModelMapper modelMapper = new ModelMapper();
+            Task task = modelMapper.map(taskDto, Task.class);
             model.addAttribute("newTask", taskDto);
             taskService.addTask(task);
             return "redirect:/";
@@ -63,8 +60,7 @@ public class TaskController {
 
     @RequestMapping("/showtasks")
     public String showTasks(Model model) {
-        model.addAttribute("tasksdone", taskService.getAllTasks(true));
-        model.addAttribute("tasks", taskService.getAllTasks(false));
+        model.addAttribute("tasks", taskService.getAllTasks());
         return "tasks";
     }
 

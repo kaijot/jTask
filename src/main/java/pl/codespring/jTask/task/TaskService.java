@@ -15,8 +15,8 @@ public class TaskService {
     public TaskService(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
     }
-
-    public List<Task> getAllTasks(Boolean status) {
+    // Instead of two queries - thymeleaf if statement
+   /* public List<Task> getAllTasks(Boolean status) {
         List<Task> tasks = new ArrayList<>();
         if (status) {
             taskRepository.findAllByIsDoneIsTrueOrderByToDoDate()
@@ -27,8 +27,14 @@ public class TaskService {
         }
         return tasks;
 
-    }
+    }*/
 
+    public List<Task> getAllTasks(){
+        List<Task> tasks = new ArrayList<>();
+        taskRepository.findAllByOrderByToDoDate()
+                .forEach(tasks::add);
+        return tasks;
+    }
 
 
     public void addTask(Task task) {

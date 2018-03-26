@@ -71,7 +71,9 @@
             <th></th>
 
         </tr>
-        <tr th:each="task : ${tasks}">
+        <tr th:each="task : ${tasks}"
+            th:if="${task.isDone()}==false">
+
             <td th:text="${task.id}">Id</td>
             <td th:text="${task.name}">Name</td>
             <td th:text="${task.description}">Description</td>
@@ -97,7 +99,8 @@
             <th></th>
 
         </tr>
-        <tr th:each="task : ${tasksdone}">
+        <tr th:each="task : ${tasks}"
+            th:if="${task.isDone()}==true">
             <td th:text="${task.id}">Id</td>
             <td th:text="${task.name}">Name</td>
             <td th:text="${task.description}">Description</td>

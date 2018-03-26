@@ -1,12 +1,14 @@
 package pl.codespring.jTask.task;
 
+import lombok.Data;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-
 import java.util.Objects;
 enum TaskPriority {LOW, MEDIUM, HIGH}
+@Data
 @Entity
 public class Task {
     @Id
@@ -17,50 +19,6 @@ public class Task {
     private LocalDateTime toDoDate;
     private TaskPriority priority;
     private boolean isDone;
-
-
-
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getToDoDate() {
-        return toDoDate;
-    }
-
-    public void setToDoDate(LocalDateTime toDoDate) {
-        this.toDoDate = toDoDate;
-    }
-
-    public TaskPriority getPriority() {
-        return priority;
-    }
-
-    public void setPriority(TaskPriority priority) {
-        this.priority = priority;
-    }
-
-    public int getId() {
-
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     {
         this.name = "Task name";
@@ -94,33 +52,5 @@ public class Task {
         isDone=!isDone;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Task task = (Task) o;
-        return id == task.id &&
-                Objects.equals(name, task.name) &&
-                Objects.equals(description, task.description) &&
-                Objects.equals(toDoDate, task.toDoDate) &&
-                priority == task.priority;
-    }
 
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, name, description, toDoDate, priority);
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", toDoDate=" + toDoDate +
-                ", priority=" + priority +
-                '}';
-    }
 }
