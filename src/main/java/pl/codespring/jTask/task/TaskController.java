@@ -14,9 +14,8 @@ import java.util.List;
 @Controller
 public class TaskController {
 
-    TaskDto taskDto;
-
     private final TaskService taskService;
+    TaskDto taskDto;
 
     @Autowired
     public TaskController(TaskService taskService) {
@@ -27,7 +26,7 @@ public class TaskController {
     public String showIndexPage(Model model) {
         Task task = new Task();
         model.addAttribute("tasks", taskService.getAllTasks());
-
+        model.addAttribute("outdatedtasks", taskService.getOutdatedTasks());
         model.addAttribute("newtask", task);
 
         return "index";

@@ -1,8 +1,10 @@
 package pl.codespring.jTask.task;
 
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class TaskService {
 
     }*/
 
-    public List<Task> getAllTasks(){
+    public List<Task> getAllTasks() {
         List<Task> tasks = new ArrayList<>();
         taskRepository.findAllByOrderByToDoDate()
                 .forEach(tasks::add);
@@ -62,8 +64,16 @@ public class TaskService {
     public Task getTask(int id) {
         if (taskRepository.existsById(id)) {
             return taskRepository.findById(id).get();
-        }else{
+        } else {
             return null;
         }
+    }
+
+    public List<Task> getOutdatedTasks() {
+        List<Task> tasks = new ArrayList<>();
+        LocalDateTime currentDate = LocalDateTime.now();
+        taskRepository.findAllByToDoDateIsLessThan(currentDate)
+                .forEach(tasks::add);
+        return tasks;
     }
 }
