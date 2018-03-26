@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -17,13 +16,20 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> getAllTasks() {
+    public List<Task> getAllTasks(Boolean status) {
         List<Task> tasks = new ArrayList<>();
-        taskRepository.findAll()
-                .forEach(tasks::add);
+        if (status) {
+            taskRepository.findAllByIsDoneIsTrueOrderByToDoDate()
+                    .forEach(tasks::add);
+        } else {
+            taskRepository.findAllByIsDoneIsFalseOrderByToDoDate()
+                    .forEach(tasks::add);
+        }
         return tasks;
 
     }
+
+
 
     public void addTask(Task task) {
         taskRepository.save(task);

@@ -38,12 +38,16 @@
     </script>
     <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
+    <link rel="stylesheet" href="../static/jtask.css" th:href="@{/jtask.css}"/>
+
 </head>
 <body>
 
 <form action="#" th:action="@{/addtask}" th:object="${newtask}" method="post" class="form-horizontal" role="form">
-    <input type="text" name="name" id="name" placeholder="Name"/>
-    <input type="text"  id="description" name="description" placeholder="Description"/>
+
+    <input type="text" name="name" id="name" placeholder="Name" th:placeholder="${#fields.hasErrors('name')}? ${#fields.errors('name')} : 'Name'"  th:errorclass="fieldError"/>
+
+    <input type="text"  id="description" name="description" placeholder="Description" th:placeholder="${#fields.hasErrors('description')}? ${#fields.errors('description')} : 'Description'"  th:errorclass="fieldError"/>
     <select th:name="priority" th:field="*{priority}">
         <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
                 th:value="${priority}"
@@ -56,9 +60,11 @@
 
 
     <button type="submit" name="addRow">Add task</button>
+
 </form>
 <div id="tasksList">
-    <table>
+
+    <table id="tasksListUnDone">
         <tr>
             <th>id</th>
             <th>name</th>
@@ -66,6 +72,32 @@
 
         </tr>
         <tr th:each="task : ${tasks}">
+            <td th:text="${task.id}">Id</td>
+            <td th:text="${task.name}">Name</td>
+            <td th:text="${task.description}">Description</td>
+            <td th:text="${#temporals.format(task.toDoDate,'dd-MM-yyyy, HH:mm')}">To do date</td>
+            <td th:text="${task.priority}">Priority</td>
+            <td>
+                <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+            </td>
+            <td>
+                <button type="submit" th:onclick="'javascript:editTask(' + ${task.id} + ');'">e</button>
+            </td>
+            <td>
+                <input type="checkbox" name="isDone" th:checked="${task.isDone()} ==true"  th:onclick="'javascript:changeStatus(' + ${task.id} + ');'">
+            </td>
+        </tr>
+    </table>
+    <hr/>
+
+    <table id="tasksListDone">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th></th>
+
+        </tr>
+        <tr th:each="task : ${tasksdone}">
             <td th:text="${task.id}">Id</td>
             <td th:text="${task.name}">Name</td>
             <td th:text="${task.description}">Description</td>

@@ -1,4 +1,4 @@
-<table>
+<table id="tasksListUnDone">
     <tr>
         <th>id</th>
         <th>name</th>
@@ -11,7 +11,35 @@
         <td th:text="${task.description}">Description</td>
         <td th:text="${#temporals.format(task.toDoDate,'dd-MM-yyyy, HH:mm')}">To do date</td>
         <td th:text="${task.priority}">Priority</td>
-        <td><button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button></td>
+        <td>
+            <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+        </td>
+        <td>
+            <button type="submit" th:onclick="'javascript:editTask(' + ${task.id} + ');'">e</button>
+        </td>
+        <td>
+            <input type="checkbox" name="isDone" th:checked="${task.isDone()} ==true"  th:onclick="'javascript:changeStatus(' + ${task.id} + ');'">
+        </td>
+    </tr>
+</table>
+<hr/>
+
+<table id="tasksListDone">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th></th>
+
+    </tr>
+    <tr th:each="task : ${tasksdone}">
+        <td th:text="${task.id}">Id</td>
+        <td th:text="${task.name}">Name</td>
+        <td th:text="${task.description}">Description</td>
+        <td th:text="${#temporals.format(task.toDoDate,'dd-MM-yyyy, HH:mm')}">To do date</td>
+        <td th:text="${task.priority}">Priority</td>
+        <td>
+            <button type="submit" th:onclick="'javascript:deleteTask(' + ${task.id} + ');'">x</button>
+        </td>
         <td>
             <button type="submit" th:onclick="'javascript:editTask(' + ${task.id} + ');'">e</button>
         </td>
