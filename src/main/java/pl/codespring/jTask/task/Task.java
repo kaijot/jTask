@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import static pl.codespring.jTask.task.TaskPriority.MEDIUM;
 
@@ -29,6 +28,7 @@ public class Task {
         this.description = "Task description";
         this.priority=MEDIUM;
         this.isDone=false;
+
 
     }
 

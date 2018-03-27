@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <title>jTask</title>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
+    <link rel="stylesheet" href="../static/jtask.css" th:href="@{/jtask.css}"/>
+
+</head>
+<body>
+<div class="container">
+    <div class="error-message">
+        <h1>Oops. Something went wrong</h1>
+
+        <h2  th:text="${status}"></h2>
+        <h2  th:text="${error}"></h2>
+    </div>
+</div>
+</body>
+
+</html>

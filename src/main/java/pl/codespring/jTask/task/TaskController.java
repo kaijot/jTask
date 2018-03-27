@@ -6,10 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.codespring.jTask.task.TaskDto;
 
 import javax.validation.Valid;
-import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TaskController {
@@ -71,9 +70,13 @@ public class TaskController {
 
     @RequestMapping("/edittask/{id}")
     public String editTask(@PathVariable int id, Model model) {
-        Task task = taskService.getTask(id);
-        model.addAttribute("taskToEdit", task);
-        return "edittask";
+        Optional task = taskService.getTask(id);
+        if (task.isPresent()) {
+            model.addAttribute("taskToEdit", task);
+            return "edittask";
+        } else {
+            return "redirect:/";
+        }
     }
 
     @RequestMapping(value = "/doEditTask", method = RequestMethod.PUT)
