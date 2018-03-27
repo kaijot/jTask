@@ -1,7 +1,6 @@
-package pl.codespring.jTask.task;
+package net.kistowski.jTask.task;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;

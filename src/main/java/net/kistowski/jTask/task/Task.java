@@ -1,4 +1,6 @@
-package pl.codespring.jTask.task;
+package net.kistowski.jTask.task;
+
+
 
 import lombok.Data;
 
@@ -6,10 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
-import static pl.codespring.jTask.task.TaskPriority.MEDIUM;
 
-enum TaskPriority {LOW, MEDIUM, HIGH}
 @Data
 @Entity
 public class Task {
@@ -26,7 +27,7 @@ public class Task {
         this.name = "Task name";
         this.toDoDate = LocalDateTime.now().plusDays(1).withHour(17).withMinute(0);
         this.description = "Task description";
-        this.priority=MEDIUM;
+        this.priority=TaskPriority.MEDIUM;
         this.isDone=false;
 
 
@@ -54,6 +55,4 @@ public class Task {
     public void changeStatus(){
         isDone=!isDone;
     }
-
-
 }

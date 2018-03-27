@@ -40,7 +40,7 @@
     <input type="text" th:field="*{description}" id="description" name="description"/>
     <!-- <input type="text" th:field="*{toDoDate}" id="toDoDate" name="toDoDate"/>-->
     <select th:name="priority" th:field="*{priority}">
-        <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
+        <option  th:each="priority : ${T(net.kistowski.jTask.task.TaskPriority).values()}"
                 th:value="${priority}"
                 th:text="${priority}">
         </option>

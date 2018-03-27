@@ -1,12 +1,12 @@
-package pl.codespring.jTask;
+package net.kistowski.jTask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestprojectApplication {
+public class JTaskApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestprojectApplication.class, args);
+		SpringApplication.run(JTaskApplication.class, args);
 	}
 }

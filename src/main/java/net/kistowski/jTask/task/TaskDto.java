@@ -1,4 +1,5 @@
-package pl.codespring.jTask.task;
+package net.kistowski.jTask.task;
+
 
 import lombok.Data;
 

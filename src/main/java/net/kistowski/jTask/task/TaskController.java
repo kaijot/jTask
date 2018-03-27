@@ -1,4 +1,4 @@
-package pl.codespring.jTask.task;
+package net.kistowski.jTask.task;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -39,7 +39,6 @@
     <link rel="stylesheet" href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../static/bootstrap-datetimepicker.css" th:href="@{/bootstrap-datetimepicker.css}"/>
     <link rel="stylesheet" href="../static/jtask.css" th:href="@{/jtask.css}"/>
-
 </head>
 <body>
 
@@ -49,7 +48,7 @@
 
     <input type="text"  id="description" name="description" placeholder="Description" th:placeholder="${#fields.hasErrors('description')}? ${#fields.errors('description')} : 'Description'"  th:errorclass="fieldError"/>
     <select th:name="priority" th:field="*{priority}">
-        <option  th:each="priority : ${T(pl.codespring.jTask.task.TaskPriority).values()}"
+        <option  th:each="priority : ${T(net.kistowski.jTask.task.TaskPriority).values()}"
                 th:value="${priority}"
                 th:text="${priority}">
         </option>
